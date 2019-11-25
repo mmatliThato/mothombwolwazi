@@ -21,11 +21,11 @@ export class AppComponent {
       url: '/analytics',
       icon: 'analytics'
     },
-    {
-      title:'',
-      url: '',
-      icon: ''
-    }
+    // {
+    //   title:'',
+    //   url: '',
+    //   icon: ''
+    // }
   ];
 
   constructor(
