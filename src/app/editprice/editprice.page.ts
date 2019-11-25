@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
+
 @Component({
-  selector: 'app-list',
-  templateUrl: 'list.page.html',
-  styleUrls: ['list.page.scss']
+  selector: 'app-editprice',
+  templateUrl: './editprice.page.html',
+  styleUrls: ['./editprice.page.scss'],
 })
-export class ListPage implements OnInit {
+export class EditpricePage implements OnInit {
+
   db =firebase.firestore();
-  pricelist={
+  profile={
   
   
     name:null,
@@ -19,9 +21,7 @@ export class ListPage implements OnInit {
     userid:firebase.auth().currentUser.uid,
   
   }
-  constructor() {
-    
-  }
+  constructor() { }
 
   ngOnInit() {
   }
@@ -39,4 +39,7 @@ export class ListPage implements OnInit {
   });
 
 }
+ 
+  
+    
 }

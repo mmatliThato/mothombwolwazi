@@ -22,9 +22,9 @@ export class AppComponent {
       icon: 'list'
     },
     {
-      title: 'login',
-      url: '/login',
-      icon: 'login'
+      title: 'editprice',
+      url: '/editprice',
+      icon: 'editprice'
     },
   ];
 
