@@ -1,0 +1,74 @@
+.container {
+    //border: 1px solid red;
+    height: 100%;
+}
+.halfone {
+   // border: 1px solid blue;
+    height: 50%;
+    // display: flex;
+    // justify-content: center;
+    // align-content: center;
+    // align-items: center;
+    .graph {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        height: 100%;
+        width: 100%;
+       border-radius: 5px;
+       background: url(../../assets/graph.jpg);
+       background-repeat: no-repeat;
+       object-fit: cover;
+       background-position: center;
+       background-size: cover;
+    }
+}
+
+.halftwo {
+   // border: 1px solid rgb(0, 255, 42);
+    height: 50%;
+    display: flex;
+    justify-content: space-around;
+    .users {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.075), 0 6px 20px 0 rgba(0, 0, 0, 0.089);
+        background-image: linear-gradient(rgb(0, 225, 255), rgb(37, 139, 223));
+        width: 32.33%;
+        border-radius: 5px;
+    }
+
+    .category1 {
+       // border: 1px solid rgb(255, 0, 191);
+        width: 32.33%;
+
+        .alluminium {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.075), 0 6px 20px 0 rgba(0, 0, 0, 0.089);
+            background-image: linear-gradient(rgb(255, 0, 119), rgb(223, 37, 62));
+           height: 48.5%;
+           border-radius: 5px;
+        }
+        .plastic {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.075), 0 6px 20px 0 rgba(0, 0, 0, 0.089);
+            background-image: linear-gradient(rgb(0, 255, 255), rgb(20, 184, 135));
+            margin-top: 4%;
+            height: 48.5%;
+            border-radius: 5px;
+        }
+    }
+
+    .category2 {
+        // border: 1px solid rgb(136, 255, 0);
+        width: 32.33%;
+
+        .glass {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.075), 0 6px 20px 0 rgba(0, 0, 0, 0.089);
+            background-image: linear-gradient(rgb(100, 26, 219), rgb(49, 37, 223));
+           height: 48.5%;
+           border-radius: 5px;
+        }
+        .paper {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.075), 0 6px 20px 0 rgba(0, 0, 0, 0.089);
+            background-image: linear-gradient(rgb(255, 196, 0), rgb(177, 119, 12));
+            margin-top: 4%;
+            height: 48.5%;
+            border-radius: 5px;
+        }
+    }
+}
