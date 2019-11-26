@@ -50,27 +50,30 @@ export class ProfilePage implements OnInit {
       Name : ['', [Validators.required, Validators.pattern('[a-zA-Z]+$')]],
       Surname : ['', [Validators.required, Validators.pattern('[a-zA-Z]+$')]],
     });
+
+    this.signup();
    }
 
   ngOnInit() {
+    
   }
 
   signup() {
     // inserting into database
-    firebase.firestore().collection('cmsUsers/').doc(firebase.auth().currentUser.uid).set({
-      username: this.name,
-      surnamez: this.surname,
-      phoneNumber: this.phoneNumber,
-      role: this.role,
-      id: firebase.auth().currentUser.uid,
-      hasProfilePic: false,
+    firebase.firestore().collection('cmsUsers/').doc(firebase.auth().currentUser.uid).collection('cmsUser/').doc().set({
+      username: "nathi",
+      surnamez: "tcf",
+      phoneNumber: "0614719972",
+      role: "admin",
+      // id: firebase.auth().currentUser.uid,
+      // hasProfilePic: false,
       }).catch((error) => {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
         return errorMessage;
       });
-    this.route.navigateByUrl('/home');
+    // this.route.navigateByUrl('/home');
     console.log("user registered");
   }
 
