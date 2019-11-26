@@ -1,0 +1,61 @@
+.container {
+    border: 1px solid red;
+    height: 100%;
+    display: flex;
+}
+.profiles {
+    border: 1px solid red;
+    height: 100%;
+    width: 49%;
+
+    .propic {
+        border: 1px solid blue;
+       display: flex;
+        .image-holder {
+            width: 100px;
+           border: 2px solid rgb(180, 16, 16);
+  .image {
+      border: 1px solid rgb(0, 0, 0);
+      width:100px;
+      height: 100px;
+      border-radius: 50%;
+  }
+        }
+        // .image {
+        //     width: 10vh;
+        //     height: 10vh;
+        //     border: 1px solid red;
+        //     border-radius:50% ;
+        //     margin-left: 3%;
+        //     margin-top: 1.5%;
+        // }
+        
+        // .names {
+        //     border: 1px solid green;
+        //     width: 60%;
+        //     padding-left: 2%;
+        //     p {
+        //         border: 1px solid rgb(245, 24, 153);
+        //         margin-top: 10%;
+        //     }
+        //     #phn {
+        //         margin-top: -5%;
+        //     }
+        //     #mail {
+        //         margin-top: -6%;
+        //     }
+        // }
+    }
+
+    .stats {
+        border: 1px solid blue;
+        height: 85%;
+    }
+}
+
+.receipts {
+    border: 1px solid red;
+    height: 100%;
+    width: 49%;
+    margin-left: 2%;
+}

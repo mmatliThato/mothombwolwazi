@@ -30,19 +30,18 @@ export class AuthService {
     });
   }
   //Adding new users to the database
-  register(email, password){
+  register(email, password, role, surname, name){
     return firebase.auth().createUserWithEmailAndPassword(email, password).then(data => {
       // this.setCurrentSession(firebase.auth())
       // this.checkingAuthState()
       let userEmail = email;
       let userName = name;
       let userID = data.user.uid;
-      //let now = moment().format('LLLL')
       console.log(userID)
       firebase.firestore().collection('Users/').doc(userID).set({
-        email: userEmail,
+        surname: surname,
         name: userName,
-        role: 'Admin',
+        role: role,
         hasProfilePic: false,
         hasRequestedLink: false,          //when the user has requested to link his/her account with someone else
         hasReceivedLinkRequest: false,    //when the user has received a link request from another user
@@ -83,6 +82,7 @@ export class AuthService {
       });
     })
   }
+  
   getUserProfile(userId)  {
     return firebase.firestore().collection("Users/").doc(userId).get().then((snapshot) =>{
       // Edit
@@ -98,6 +98,7 @@ export class AuthService {
       }
     })
   }
+
   checkingAuthState(){
     return new Promise((resolve, reject) =>{
       firebase.auth().onAuthStateChanged((user) =>{
@@ -110,6 +111,7 @@ export class AuthService {
       })
     })
   }
+
   savePic(image){
     // this.login(this.email, this.password).then((userID) =>{
     //   let storageRef = firebase.storage().ref('userDisplayPic/' + userID)
@@ -119,6 +121,7 @@ export class AuthService {
     // })
   }
   //delete?
+
   retrievingUserInfo(uid){
     return new Promise((resolve, reject) => {
       var userRoot = firebase.database().ref("Users").child(uid)
@@ -136,6 +139,7 @@ export class AuthService {
       })
     })
   }
+
   updateProfile(userID, newUsername, username, newEmail, email){
     return new Promise((resolve, reject) => {
       if(newUsername !== username){
@@ -162,4 +166,13 @@ export class AuthService {
       resolve ()
     })
   }
+
+  logout() {
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+    }).catch(function(error) {
+      // An error happened.
+    });
+  }
+
 }
