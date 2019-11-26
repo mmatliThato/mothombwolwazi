@@ -1,3 +1,4 @@
+import { TransactionsPage } from './../transactions/transactions.page';
 
 import { Component } from '@angular/core';
 import { ClientHistoryPage} from '../client-history/client-history.page';

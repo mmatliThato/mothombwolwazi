@@ -26,6 +26,11 @@ export class AppComponent {
       url: '/editprice',
       icon: 'editprice'
     },
+    {
+      title: 'transactions',
+      url: '/transactions',
+      icon: 'transactions'
+    },
     // {
     //   title:'',
     //   url: '',

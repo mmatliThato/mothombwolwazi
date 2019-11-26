@@ -6,6 +6,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import * as firebase from 'firebase';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Profile } from 'selenium-webdriver/firefox';
 declare var window;
 
 @Component({
