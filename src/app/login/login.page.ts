@@ -1,128 +1,278 @@
-
-import { AuthService } from '../user/auth.service';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-
-import * as firebase from 'firebase';
-import { AlertController } from '@ionic/angular';
+import { Component, OnInit, Renderer2, NgZone } from '@angular/core';
+import { FormGroup, Validators, FormBuilder, FormsModule } from '@angular/forms';
+import { LoadingController, AlertController } from '@ionic/angular';
+import { AuthService } from '../../app/user/auth.service';
 import { Router } from '@angular/router';
-declare var window;
+import * as firebase from 'firebase';
+import { Directive, HostListener, Output, EventEmitter, ElementRef, Input } from '@angular/core';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  styleUrls: ['./login.page.scss']
+})
+@Directive({
+  selector: '[br-data-dependency]' // Attribute selector
 })
 export class LoginPage implements OnInit {
 
-  phoneNumber = '';
-  password;
-  registrationForm;
-  smsSent;
-  confirmationResult = '';
-  inputCode;
-  public recaptchaVerifier: firebase.auth.RecaptchaVerifier;
+  loaderAnimate = false;
+  public onSubmit(): void {
+    // ...
+    // ... // ...
+    // ...
+  }
+  db = firebase.firestore()
+  public signinForm: FormGroup;
+  loginError = {
+    code: '',
+    message: ''
+  }
 
+  public signupForm: FormGroup;
+  public loading: HTMLIonLoadingElement;
+  formSwitcher = 'signin';
+  // form containers
+  signUpForm = document.getElementsByClassName('signup')
+  signInForm = document.getElementsByClassName('login')
+  // switcher buttons
+  signUpB = document.getElementsByClassName('bReg')
+  signInB = document.getElementsByClassName('bSign')
   constructor(
-    public authService: AuthService,
-    public formBuilder: FormBuilder,
-    public alertController: AlertController,
-    public route: Router,
-    ) {
-      this.smsSent = false;
+    public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController,
+    private authService: AuthService,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private renderer: Renderer2,
+    private FormsModule: FormsModule,
+    private zone: NgZone,
+    public splashscreen: SplashScreen
+  ) {
 
-      firebase.auth().languageCode = 'en';
 
-      this.registrationForm = formBuilder.group({
-    phoneNumber: [this.phoneNumber, Validators.compose([Validators.required])]
+    this.signinForm = this.formBuilder.group({
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(6)])
+      ]
     });
-  }
 
-  ngOnInit() {
-    // throw new Error("Method not implemented.");
-  }
 
-  requestCode() {
-    this.phoneNumber = this.registrationForm.get('phoneNumber').value;
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
-    console.log(window.recaptchaVerifier);
-    let appVerifier = window.recaptchaVerifier;
-    return this.authService.requestLogin(this.phoneNumber, appVerifier).then(result => {
-      if (result.success === true) {
-        console.log(result);
-        this.confirmationResult = result.result;
-        console.log(this.confirmationResult);
-      }
+    this.signupForm = this.formBuilder.group({
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(6)])
+      ]
     });
+    if (this.formSwitcher=='signin') {
+      
+      setTimeout(()=> {
+        // console.log(this.signInB[0].children[0]);
+        this.renderer.setStyle(this.signInB[0].children[0], 'background', '#480B0B');
+        this.renderer.setStyle(this.signInB[0].children[0], 'color', 'white');
+        this.renderer.setStyle(this.signUpB[0].children[0], 'background', 'gray');
+        this.renderer.setStyle(this.signUpB[0].children[0], 'color', '#480B0B');
+
+        this.renderer.setStyle(this.signInForm[0], 'transform', 'translateX(0)');
+      this.renderer.setStyle(this.signUpForm[0], 'transform', 'translateX(100vw)');
+      }, 500)
+    } else {
+      this.renderer.setStyle(this.signInB[0].children[0], 'background', 'gray');
+      this.renderer.setStyle(this.signInB[0].children[0], 'color', '#480B0B');
+        this.renderer.setStyle(this.signUpB[0].children[0], 'background', '#480B0B');
+        this.renderer.setStyle(this.signUpB[0].children[0], 'color', 'white');
+
+      this.renderer.setStyle(this.signInForm[0], 'transform', 'translateX(100vw)');
+      this.renderer.setStyle(this.signUpForm[0], 'transform', 'translateX(0vw)');
+    }
+    
   }
 
-  logins(code) {
-    if (this.confirmationResult !== '') {
-      return this.authService.login(code, this.confirmationResult).then(result => {
-        console.log(result);
-      });
+  async ngOnInit() {
+    setTimeout(()=>{
+      this.splashscreen.hide()
+          },2000)
+    this.splashscreen.hide()
+  }
+
+  async loginUser(signinForm) {
+    
+
+    this.zone.run(()=> {
+      this.loaderAnimate = true;
+    console.log(signinForm);
+    firebase.auth().signInWithEmailAndPassword(signinForm.email, signinForm.password).then(res => {
+      this.loaderAnimate = false;
+      // this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).get().then(res => {
+      //   if (res.exists) {
+        
+      //     this.router.navigateByUrl('/main/the-map')    
+      //   } else {
+      //     this.router.navigate(['viewprofile'])
+      //   }
+  
+      // }).catch(err => {
+      //   console.log(err);
+  
+      // })
+      this.router.navigateByUrl('/profiles')
+    }).catch( async (err) => {
+
+      
+        const alert = await this.alertCtrl.create({
+          message: err.message,
+          buttons: [{ text: 'Ok', role: 'cancel' }]
+        });
+        await alert.present();
+        this.loaderAnimate = false;
+      
+      
+      this.loaderAnimate = false;
+      this.loginError.code = err.code,
+      this.loginError.message = err.message;
+    })
+    })
+
+  }
+
+  async signupUser(signupForm: FormGroup): Promise<void> {
+    
+    console.log('Method is called');
+
+    if (!signupForm.valid) {
+      
+      console.log(
+        'Need to complete the form, current value: ',
+        signupForm.value
+      );
+    } else {
+      this.loaderAnimate = true;
+      const email: string = signupForm.value.email;
+      const password: string = signupForm.value.password;
+
+      this.authService.signupUser(email, password).then(
+        () => {
+          this.loading.dismiss()
+          this.loaderAnimate = false;
+          this.router.navigateByUrl('/profiles')
+        }
+      ).catch(error =>{
+         this.loading.dismiss().then(async () => {
+            const alert = await this.alertCtrl.create({
+              message: error.message,
+              buttons: [{ text: 'Ok', role: 'cancel' }]
+            });
+            await alert.present();
+            this.loaderAnimate = false;
+          });
+      })
+      this.loading = await this.loadingCtrl.create();
+      // await this.loading.present();
+      this.loaderAnimate = true;
     }
   }
 
-  addUser() {
-    this.phoneNumber = this.registrationForm.get('phoneNumber').value;
-    console.log(this.phoneNumber);
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-      size: 'invisible',
-      callback: (response) => {
-        console.log('checking here');
-        console.log(response);
-      },
-      'expired-callback': () => {
-      }
-    });
-    console.log(window.recaptchaVerifier);
-    let appVerifier = window.recaptchaVerifier;
-    return this.authService.requestLogin(this.phoneNumber, appVerifier).then(result => {
-      if (result.success === true) {
-        console.log(result);
-        this.confirmationResult = result.result;
-        console.log(this.confirmationResult);
-        this.alert();
-      }
-    });
-  }
+   async forgetpassword() {
 
-  async alert() {
-    const alert = await this.alertController.create({
-      header: 'Verfification code',
-      // subHeader: 'Enter verification code',
+    // this.router.navigate(['reset-password']);
+
+    const alert = await this.alertCtrl.create({
+      header: 'Please enter your E-mail',
       inputs: [
+        
         {
-          name: 'code',
-          type: 'text',
-          placeholder: 'Enter code'
-        }],
-      buttons: [{
-        text: 'Submit',
-        role: 'submit',
-        cssClass: 'secondary',
-        handler: (result) => {
-          console.log(result.code);
-          this.logins(result.code);
-          this.route.navigateByUrl('/home');
+          name: 'name',
+          type: 'text'
         }
-      }]
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (data) => {
+            firebase.auth().sendPasswordResetEmail(data.name).then(
+              async () => {
+                const alert = await this.alertCtrl.create({
+                  message: 'Check your email for a password reset link',
+                  buttons: [
+                    {
+                      text: 'Ok',
+                      role: 'cancel',
+                      handler: () => {
+                        this.router.navigateByUrl('login');
+                      }
+                    }
+                  ]
+                });
+                await alert.present();
+              },
+              async error => {
+                const errorAlert = await this.alertCtrl.create({
+                  message: error.message,
+                  buttons: [{ text: 'Ok', role: 'cancel' }]
+                });
+                await errorAlert.present();
+              }
+            );
+          }
+        }
+      ]
     });
+
     await alert.present();
   }
 
-  login() {
-    this.phoneNumber = this.registrationForm.get('phoneNumber').value;
-    console.log(this.phoneNumber);
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
-    console.log(window.recaptchaVerifier);
-    let appVerifier = window.recaptchaVerifier;
-    firebase.auth().signInWithPhoneNumber(String(this.phoneNumber), appVerifier).then(confirmationResult => {
-      window.confirmationResult = confirmationResult;
-    }).catch((error) => {
-      console.log(error);
-    });
+
+
+  async goToRegister(){
+    this.router.navigate(['register']);
   }
+
+
+  handleLogin() {
+    // Do your stuff here
+}
+
+switchForms(cmd) {
+  
+ 
+  
+  this.formSwitcher = cmd;
+  console.log('clicked', this.formSwitcher);
+  if (this.formSwitcher=='signin') {
+    
+    setTimeout(()=> {
+      this.renderer.setStyle(this.signInB[0].children[0], 'background', '#480B0B');
+        this.renderer.setStyle(this.signInB[0].children[0], 'color', 'white');
+        this.renderer.setStyle(this.signUpB[0].children[0], 'background', 'gray');
+        this.renderer.setStyle(this.signUpB[0].children[0], 'color', '#480B0B');
+
+      // console.log(this.signInForm[0]);
+      this.renderer.setStyle(this.signInForm[0], 'transform', 'translateX(0)');
+    this.renderer.setStyle(this.signUpForm[0], 'transform', 'translateX(100vw)');
+    })
+  } else {
+    this.renderer.setStyle(this.signInB[0].children[0], 'background', 'gray');
+        this.renderer.setStyle(this.signInB[0].children[0], 'color', '#480B0B');
+        this.renderer.setStyle(this.signUpB[0].children[0], 'background', '#480B0B');
+        this.renderer.setStyle(this.signUpB[0].children[0], 'color', 'white');
+    // console.log(this.signUpForm);
+    this.renderer.setStyle(this.signInForm[0], 'transform', 'translateX(100vw)');
+    this.renderer.setStyle(this.signUpForm[0], 'transform', 'translateX(0vw)');
+  }
+
+
+}
+
 
 }

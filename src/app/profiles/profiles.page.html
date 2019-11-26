@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>profiles</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <a>name</a>
+  <input type="text"   [(ngModel)]="profile.name" >
+
+  <a>surname</a>
+  <input  type="text"  [(ngModel)]="profile.surname">
+  
+ <a>Position</a>
+  <input  type="text"  [(ngModel)]="profile.position">
+  <a>email</a>
+  <input  type="text"   [(ngModel)]="profile.email">
+
+
+  <button (click)="users()" type="submit" color="light" size="small">
+    submit
+  </button>
+</ion-content>

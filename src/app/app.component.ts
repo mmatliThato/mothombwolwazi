@@ -26,6 +26,16 @@ export class AppComponent {
       url: '/editprice',
       icon: 'editprice'
     },
+    {
+      title: 'register',
+      url: '/register',
+      icon: 'register'
+    },
+    {
+      title: 'login',
+      url: '/login',
+      icon: 'login'
+    },
     // {
     //   title:'',
     //   url: '',

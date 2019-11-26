@@ -30,6 +30,14 @@ const routes: Routes = [
   {
     path: 'edit',
     loadChildren: () => import('./edit/edit.module').then( m => m.EditPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'profiles',
+    loadChildren: () => import('./profiles/profiles.module').then( m => m.ProfilesPageModule)
   }
 ​
 ​
