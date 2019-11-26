@@ -8,20 +8,8 @@ import { ClientHistoryPage} from '../client-history/client-history.page';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
- 
-  constructor() {
 
-
-
-
-  
-
-      
-    }
-  
-
-
-    
+  constructor() { }
 
 
 
