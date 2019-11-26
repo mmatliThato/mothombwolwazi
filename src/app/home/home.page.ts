@@ -1,4 +1,4 @@
-import { data } from 'jquery';
+
 import { Component } from '@angular/core';
 import * as firebase from 'firebase';
 
@@ -55,7 +55,11 @@ prices
       
       // To update age and favorite color:
       this.db.collection("price").doc("SinUfRNnbB073KZiDIZE").update({
-        gl001:pricess.gl001
+        gl001:pricess.gl001,
+        hd001:pricess.hd001,
+        ld003:pricess.ld003,
+        nfalo1:pricess.nfalo1,
+        pap005: pricess.pap005,
       })
       .then(function() {
         console.log("Document successfully updated!");
