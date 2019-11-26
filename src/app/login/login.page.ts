@@ -1,9 +1,11 @@
-import { Component, OnInit, Renderer2, NgZone } from '@angular/core';
+import { Component, OnInit, Renderer2, NgZone, Directive } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormsModule } from '@angular/forms';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { AuthService } from '../../app/user/auth.service';
 import { Router } from '@angular/router';
 import { Profile } from 'selenium-webdriver/firefox';
+import * as firebase from 'firebase';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 declare var window;
 
 @Component({
@@ -157,7 +159,7 @@ export class LoginPage implements OnInit {
         () => {
           this.loading.dismiss()
           this.loaderAnimate = false;
-          this.router.navigateByUrl('/profiles')
+          this.router.navigateByUrl('/profiles');
         }
       ).catch(error =>{
          this.loading.dismiss().then(async () => {

@@ -6,6 +6,9 @@ import 'firebase/firestore';
 @Injectable({
   providedIn: 'root'
 })
+  signupUser(email: string, password: string) {
+    throw new Error("Method not implemented.");
+  }
 export class AuthService {
   constructor() {}
 

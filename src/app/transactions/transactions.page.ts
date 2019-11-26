@@ -46,19 +46,6 @@ export class TransactionsPage implements OnInit {
   PET003mass;
   PET005mass;
 
-  GH001storagemass;
-  NFAL01storagemass;
-  PAP005storagemass;
-  PAP007storagemass;
-  PAP001storagemass;
-  PAP003storagemass;
-  HD001storagemass;
-  LD001storagemass;
-  LD003storagemass;
-  PET001storagemass;
-  PET003storagemass;
-  PET005storagemass;
-
   // GH001
   GH001SubTotal;
   GH001Vat;
@@ -118,13 +105,40 @@ export class TransactionsPage implements OnInit {
   PET005SubTotal;
   PET005Vat;
   PET005GrandTotal;
-  
+
+  GH001storagemass;
+  NFAL01storagemass;
+  PAP005storagemass;
+  PAP007storagemass;
+  PAP001storagemass;
+  PAP003storagemass;
+  HD001storagemass;
+  LD001storagemass;
+  LD003storagemass;
+  PET001storagemass;
+  PET003storagemass;
+  PET005storagemass;
+
+  storageGH001;
+  storageNFAL01;
+  storagePAP005;
+  storagePAP007;
+  storagePAP001;
+  storagePAP003;
+  storageHD001;
+  storageLD001;
+  storageLD003;
+  storagePET001;
+  storagePET003;
+  storagePET005;
 
   constructor(
     public formBuilder: FormBuilder,
     public alertController: AlertController,
     public route: Router,
-  ) { }
+  ) {
+    
+   }
 
   ngOnInit() {
     // GH001
@@ -333,23 +347,130 @@ export class TransactionsPage implements OnInit {
         this.PET003storagemass = element.data().pet003;
         this.PET005storagemass = element.data().pet005;
       });
-      console.log(this.GH001);
-      console.log(this.HD001);
-      console.log(this.LD003);
-      console.log(this.NFAL01);
-      console.log(this.PAP001);
-      console.log(this.PAP003);
-      console.log(this.PAP005);
-      console.log(this.PET001);
-      console.log(this.PET003);
-      console.log(this.PET005);
-      console.log(this.PET005);
-      console.log(this.PET005);
+      console.log(this.GH001storagemass);
+      console.log(this.NFAL01storagemass);
+      console.log(this.PAP005storagemass);
+      console.log(this.PAP007storagemass);
+      console.log(this.PAP001storagemass);
+      console.log(this.PAP003storagemass);
+      console.log(this.HD001storagemass);
+      console.log(this.LD001storagemass);
+      console.log(this.LD003storagemass);
+      console.log(this.PET001storagemass);
+      console.log(this.PET003storagemass);
+      console.log(this.PET005storagemass);
     });
   }
 
-  savedata() {
-    
+  updateStorage() {
+    // storageGH001
+    if (this.GH001storagemass = null) {
+      console.log("no GH001 mass");
+    } else {
+      this.storageGH001 = this.GH001storagemass + this.GH001mass;
+      this.db.collection("storage").doc("hD3GRe9MMPFB401vA7kS").update({GL001: this.storageGH001});
+      console.log(this.storageGH001);
+    }
+
+    // storage NFAL01;
+    if (this.NFAL01storagemass = null) {
+      console.log("no NFAL01 mass");
+    } else {
+      this.storageNFAL01 = this.NFAL01storagemass + this.NFAL01mass;
+      this.db.collection("storage").doc("hD3GRe9MMPFB401vA7kS").update({GL001: this.storageNFAL01});
+      console.log(this.storageNFAL01);
+    }
+
+    // storage PAP005;
+    if (this.PAP005storagemass = null) {
+      console.log("no PAP005 mass");
+    } else {
+      this.storagePAP005 = this.PAP005storagemass + this.PAP005mass;
+      this.db.collection("storage").doc("hD3GRe9MMPFB401vA7kS").update({GL001: this.storagePAP005});
+      console.log(this.storagePAP005);
+    }
+
+    // storage PAP007;
+    if (this.PAP007storagemass = null) {
+      console.log("no PAP007 mass");
+    } else {
+      this.storagePAP007 = this.PAP007storagemass + this.PAP007mass;
+      this.db.collection("storage").doc("hD3GRe9MMPFB401vA7kS").update({GL001: this.storagePAP007});
+      console.log(this.storagePAP007);
+    }
+
+    // storage PAP001;
+    if (this.PAP001storagemass = null) {
+      console.log("no PAP001 mass");
+    } else {
+      this.storagePAP001 = this.PAP001storagemass + this.PAP001mass;
+      this.db.collection("storage").doc("hD3GRe9MMPFB401vA7kS").update({GL001: this.storagePAP001});
+      console.log(this.storagePAP001);
+    }
+
+    // storage PAP003;
+    if (this.PAP003storagemass = null) {
+      console.log("no PAP003 mass");
+    } else {
+      this.storagePAP003 = this.PAP003storagemass + this.PAP003mass;
+      this.db.collection("storage").doc("hD3GRe9MMPFB401vA7kS").update({GL001: this.storagePAP003});
+      console.log(this.storagePAP003);
+    }
+
+    // storage HD001;
+    if (this.HD001storagemass = null) {
+      console.log("no HD001 mass");
+    } else {
+      this.storageHD001 = this.HD001storagemass + this.HD001mass;
+      this.db.collection("storage").doc("hD3GRe9MMPFB401vA7kS").update({GL001: this.storageHD001});
+      console.log(this.storageHD001);
+    }
+
+    // storage LD001;
+    if (this.LD001storagemass = null) {
+      console.log("no LD001 mass");
+    } else {
+      this.storageLD001 = this.LD001storagemass + this.LD001mass;
+      this.db.collection("storage").doc("hD3GRe9MMPFB401vA7kS").update({GL001: this.storageLD001});
+      console.log(this.storageLD001);
+    }
+
+    // storage LD003;
+    if (this.LD003storagemass = null) {
+      console.log("no LD003 mass");
+    } else {
+      this.storageLD003 = this.LD003storagemass + this.LD003mass;
+      this.db.collection("storage").doc("hD3GRe9MMPFB401vA7kS").update({GL001: this.storageLD003});
+      console.log(this.storageLD003);
+    }
+
+    // storage PET001;
+    if (this.PET001storagemass = null) {
+      console.log("no PET001 mass");
+    } else {
+      this.storagePET001 = this.PET001storagemass + this.PET001mass;
+      this.db.collection("storage").doc("hD3GRe9MMPFB401vA7kS").update({GL001: this.storagePET001});
+      console.log(this.storagePET001);
+    }
+
+    // storage PET003;
+    if (this.PET003storagemass = null) {
+      console.log("no PET003 mass");
+    } else {
+      this.storagePET003 = this.PET003storagemass + this.PET003mass;
+      this.db.collection("storage").doc("hD3GRe9MMPFB401vA7kS").update({GL001: this.storagePET003});
+      console.log(this.storagePET003);
+    }
+
+    // storage PET005;
+    if (this.GH001storagemass = null) {
+      console.log("no PET005 mass");
+    } else {
+      this.storagePET005 = this.PET005storagemass + this.PET005mass;
+      this.db.collection("storage").doc("hD3GRe9MMPFB401vA7kS").update({GL001: this.storagePET005});
+      console.log(this.storagePET005);
+    }
+
   }
 
 }
