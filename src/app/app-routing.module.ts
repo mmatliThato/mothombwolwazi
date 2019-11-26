@@ -26,7 +26,11 @@ const routes: Routes = [
   {
     path: 'editprice',
     loadChildren: () => import('./editprice/editprice.module').then( m => m.EditpricePageModule)
+  },  {
+    path: 'edit',
+    loadChildren: () => import('./edit/edit.module').then( m => m.EditPageModule)
   }
+
 
 ];
 
