@@ -1,6 +1,6 @@
 
 import { Component } from '@angular/core';
-import * as firebase from 'firebase';
+import { ClientHistoryPage} from '../client-history/client-history.page';
 
 @Component({
   selector: 'app-home',
@@ -24,8 +24,9 @@ export class HomePage {
     
 
 
-      
 
 
 
+
+  
 }
