@@ -1,18 +1,13 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 43f80c8bef4468249d530dc4d52681d2507c6a2b
+
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
     path: '',
-<<<<<<< HEAD
-    redirectTo: 'home',
-=======
+
     redirectTo: 'login',
->>>>>>> 43f80c8bef4468249d530dc4d52681d2507c6a2b
+
     pathMatch: 'full'
   },
   {
@@ -24,7 +19,6 @@ const routes: Routes = [
     loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
   },
   {
-<<<<<<< HEAD
     path: 'analytics',
     loadChildren: () => import('./analytics/analytics.module').then( m => m.AnalyticsPageModule)
   },
@@ -43,7 +37,7 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
-=======
+
     path: 'signup',
     loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
   },
@@ -66,7 +60,7 @@ export class AppRoutingModule {}
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
-=======
+
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
