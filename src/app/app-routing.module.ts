@@ -28,8 +28,16 @@ const routes: Routes = [
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
-    path: 'transactions',
-    loadChildren: () => import('./transactions/transactions.module').then( m => m.TransactionsPageModule)
+    path: 'edit',
+    loadChildren: () => import('./edit/edit.module').then( m => m.EditPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'profiles',
+    loadChildren: () => import('./profiles/profiles.module').then( m => m.ProfilesPageModule)
   }
 
 

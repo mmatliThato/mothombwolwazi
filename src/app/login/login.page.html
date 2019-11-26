@@ -1,10 +1,138 @@
-<ion-content padding>
-  <div id="recaptcha-container"></div>
-  <form class="form" style="padding: 50px;" [formGroup]="registrationForm">
-      <ion-label stacked>Phone Number</ion-label>
-      <ion-input formControlName="phoneNumber" type="text" [(ngModel)]="phoneNumber"></ion-input>
-    <ion-button id="sign-in-button" [disabled]="!registrationForm.valid"  (click)="addUser()">
-      Sign In
-    </ion-button>
-    </form>
-</ion-content>
+
+<ion-content>
+  <div [ngClass]="{'loader': loaderAnimate, 'loader-hide': !loaderAnimate}">
+  <!-- <div class="loader"> -->
+    <div class="load-ctrl">
+        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        <p style="color: white; font-size: 4vw; text-align: center">Logging In</p>
+    </div>
+  </div>
+ 
+  <div class="background">
+    <div class="logo">
+      <img src="../../assets/StepLogo.svg" alt="">
+    </div>
+    <div class="body">
+      <div class="sign">
+        <div class="bSign">
+          <button (click)="switchForms('signin')">
+            Sign In
+          </button>
+        </div>
+        <div class="bReg">
+          <button (click)="switchForms('signup')">
+            Sign Up
+          </button>
+        </div>
+      </div>
+      <div class="cont">
+        <div class="login">
+          <!-- LOGIN FORM -->
+          <form #signinForm="ngForm" (ngSubmit)="loginUser(signinForm.value); signinForm.reset()" >
+              <div class="title">
+                  <h1>
+                    SIGN IN
+                  </h1>
+                </div>
+
+            <div class="input1">
+              <div class="em">
+                  <a>User Email</a>
+              </div>
+              <div class="inp">
+                  <!-- (keyup.enter)="submit()"
+                  (keyup.enter)="submit()" -->
+                <input type="email" onfocus="this.value=''" ngModel name="email" id="email" >
+              </div>
+            </div>
+            <div class="error"  style="text-align: right; width: 100%;"  *ngIf="loginError.code=='auth/invalid-email'">
+              {{loginError.message}}
+            </div>
+
+            <div class="input1">
+              <div class="em">
+                  <a>Password</a>
+              </div>
+              <div class="inp">
+                <input type="password" ngModel name="password">
+              </div>
+            </div>
+            <div class="error" style="text-align: right; width: 100%;" *ngIf="loginError.code=='auth/wrong-password'">
+              {{loginError.message}}
+            </div>
+
+            <!-- <button class="bb" (clikc)="loginUser(signinForm.value)"></button> -->
+
+            <div class="forget">
+              <button (click)="forgetpassword()">
+                Forgot Password?
+              </button>
+            </div>
+            <div class="btn">
+              <button  type="submit">
+                Proceed
+              </button>
+            </div>
+          </form>
+        </div>
+        
+        <div class="signup">
+          <form (ngSubmit)="signupUser(signupForm)" [formGroup]= "signupForm" class="login">
+              <div class="title">
+                  <h1>
+                    SIGN UP
+                  </h1>
+                </div>
+            <div class="input1">
+                <div class="em">
+                    <a>User Email</a>
+                </div>
+                <div class="inp">
+                    <input formControlName="email" type="email" 
+        [class.invalid]="!signupForm.controls['email'].valid && signupForm.controls['email'].touched">
+                </div>
+              </div>
+
+              <div *ngIf="!signupForm.controls['email'].valid
+              && signupForm.controls['email'].touched" class="error">
+                <div class="messages" style="text-align: center;">
+                  Please enter a valid email.
+                </div>
+              </div>
+
+
+
+              <div class="input1">
+                  <div class="em">
+                      <a>Password</a>
+                  </div>
+                  <div class="inp">
+                      <input formControlName="password" type="email" type="password" 
+                      [class.invalid]="!signupForm.controls['password'].valid && signupForm.controls['password'].touched">
+                  </div>
+                </div>
+
+                <div *ngIf="!signupForm.controls['password'].valid  &&
+                signupForm.controls['password'].touched" class="error">
+                  <div class="messages" style="text-align: center;">
+                    Password needs more than 6 characters long.
+                  </div>
+                </div>
+
+                <button class="bb" ></button> 
+
+                  <div class="btn">
+                    <button  type="submit">
+                      Proceed
+                    </button>
+                  </div>
+        </form>
+       
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </ion-content>
+  
